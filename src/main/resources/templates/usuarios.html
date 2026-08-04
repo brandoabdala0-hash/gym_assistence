@@ -1,0 +1,106 @@
+ <!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios - Gym_Assistence</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <h2>Menú</h2>
+
+        <a th:href="@{/panel}">Panel</a>
+        <a th:href="@{/usuarios}">Usuarios</a>
+        <a th:href="@{/productos}">Productos</a>
+        <a th:href="@{/ventas}">Ventas</a>
+        <a th:href="@{/asistencia}">Asistencia</a>
+        <a th:href="@{/historial}">Historial</a>
+        <a th:href="@{/}">Cerrar sesión</a>
+
+    </aside>
+
+    <main class="content">
+
+        <h1>Usuarios Registrados</h1>
+
+        <table id="tablaInicio">
+
+            <tr>
+             <th>Identificación</th>
+             <th>Nombre</th>
+             <th>Edad</th>
+             <th>Número</th>
+             <th>Acciones</th>
+            </tr>
+
+            <tr th:each="usuario : ${usuarios}">
+             <td th:text="${usuario.identificacion}"></td>
+             <td th:text="${usuario.nombre}"></td>
+             <td th:text="${usuario.edad}"></td>
+             <td th:text="${usuario.numero}"></td>
+            <td>
+           
+                
+        <a th:href="@{/editarUsuario/{id}(id=${usuario.id})}">
+            Editar
+        </a>
+
+        <a th:href="@{/eliminarUsuario/{id}(id=${usuario.id})}">
+            Eliminar
+        </a>
+            </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <h1>Registro Usuario</h1>
+
+        <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
+            <input type="hidden" th:field="*{id}">
+           
+            <input
+        type="number"
+        th:field="*{identificacion}"
+        placeholder="Identificación"
+        required>
+
+          <input
+        type="text"
+        th:field="*{nombre}"
+        placeholder="Nombre"
+        required>
+
+         
+          <input
+        type="number"
+        th:field="*{edad}"
+        placeholder="Edad"
+        required>
+
+         <input
+        type="number"
+        th:field="*{numero}"
+        placeholder="Número"
+        required>
+
+         <button type="submit"
+        th:text="${usuario.id == null} ? 'Registrar' : 'Actualizar'">
+        </button>
+
+        </form>
+    </main>
+
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

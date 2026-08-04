@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gym_Assistence</title>
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section class="login-screen" id="loginScreen">
+  <div class="login-box">
+
+    <h1>GYM_ASSISTENCE</h1>
+
+    <input id="loginUsuario" placeholder="Usuario">
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Contraseña"
+    >
+
+    <button onclick="enterApp()">
+      Iniciar sesión
+    </button>
+
+    <button onclick="openRegisterScreen()">
+      Crear cuenta
+    </button>
+
+    <button onclick="openGoogleLogin()">
+      Iniciar sesión con Google
+    </button>
+
+  </div>
+</section>
+
+<!-- CREAR CUENTA -->
+<section class="login-screen hidden" id="registerScreen">
+  <div class="login-box">
+
+    <h1>Crear Cuenta</h1>
+
+    <input id="newUsuario" placeholder="Usuario">
+
+    <input
+      id="newPassword"
+      type="password"
+      placeholder="Contraseña"
+    >
+
+    <button onclick="crearCuenta()">
+      Guardar Cuenta
+    </button>
+
+    <button onclick="backToLogin()">
+      Volver
+    </button>
+
+  </div>
+</section>
+
+<!-- LOGIN GOOGLE -->
+<section class="login-screen hidden" id="googleScreen">
+  <div class="login-box">
+
+    <h1>Google Login</h1>
+
+    <input
+      id="googleCorreo"
+      placeholder="Correo"
+    >
+
+    <input
+      id="googlePassword"
+      type="password"
+      placeholder="Contraseña"
+    >
+
+    <button onclick="loginGoogle()">
+      Iniciar sesión
+    </button>
+
+    <button onclick="backToLoginFromGoogle()">
+      Volver
+    </button>
+
+  </div>
+</section>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia - Gym_Assistence</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <h2>Menú</h2>
+
+        <a th:href="@{/panel}">Panel</a>
+        <a th:href="@{/usuarios}">Usuarios</a>
+        <a th:href="@{/productos}">Productos</a>
+        <a th:href="@{/ventas}">Ventas</a>
+        <a th:href="@{/asistencia}">Asistencia</a>
+        <a th:href="@{/historial}">Historial</a>
+        <a th:href="@{/}">Cerrar sesión</a>
+
+    </aside>
+
+    <main class="content">
+
+        <h1>Asistencia</h1>
+
+        <input id="asisUsuario" placeholder="Usuario">
+        <input id="asisId" placeholder="ID">
+        <input id="asisFecha" placeholder="Fecha">
+
+        <button onclick="registrarAsistencia()">
+            Registrar
+        </button>
+
+        <table id="tablaAsistencia">
+            <tr>
+                <th>Usuario</th>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </table>
+
+    </main>
+
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
