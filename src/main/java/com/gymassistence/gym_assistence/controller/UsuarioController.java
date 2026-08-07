@@ -9,14 +9,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.gymassistence.gym_assistence.model.Usuario;
 import com.gymassistence.gym_assistence.service.UsuarioService;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.time.LocalDateTime;
+
+import com.gymassistence.gym_assistence.model.Historial;
+import com.gymassistence.gym_assistence.service.HistorialService;
 
 @Controller
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final HistorialService historialService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public UsuarioController(UsuarioService usuarioService,
+                       HistorialService historialService) {
+
+    this.usuarioService = usuarioService;
+    this.historialService = historialService;
     }
 
     // Login
@@ -42,23 +50,6 @@ public class UsuarioController {
     return "usuarios";
     }
 
-    // Ventas
-    @GetMapping("/ventas")
-    public String ventas() {
-        return "ventas";
-    }
-
-    // Asistencia
-    @GetMapping("/asistencia")
-    public String asistencia() {
-        return "asistencia";
-    }
-
-    // Historial
-    @GetMapping("/historial")
-    public String historial() {
-        return "historial";
-    }
 
     @GetMapping("/editarUsuario/{id}")
     public String editarUsuario(@PathVariable Integer id, Model model) {
@@ -74,17 +65,41 @@ public class UsuarioController {
     @PostMapping("/guardarUsuario")
     public String guardarUsuario(@ModelAttribute Usuario usuario) {
 
-        usuarioService.guardarUsuario(usuario);
+    boolean esNuevo = (usuario.getId() == null);
 
-        return "redirect:/usuarios";
+    usuarioService.guardarUsuario(usuario);
+
+    Historial historial = new Historial();
+
+    historial.setIdentificacion(usuario.getIdentificacion());
+    historial.setNombre(usuario.getNombre());
+    historial.setModulo("Usuarios");
+    historial.setAccion(esNuevo ? "Registro" : "Actualización");
+    historial.setFecha(LocalDateTime.now());
+
+    historialService.guardarHistorial(historial);
+
+    return "redirect:/usuarios";
     }
 
     @GetMapping("/eliminarUsuario/{id}")
     public String eliminarUsuario(@PathVariable Integer id) {
 
-        usuarioService.eliminarUsuario(id);
+    Usuario usuario = usuarioService.buscarPorId(id);
 
-        return "redirect:/usuarios";
+    Historial historial = new Historial();
+
+    historial.setIdentificacion(usuario.getIdentificacion());
+    historial.setNombre(usuario.getNombre());
+    historial.setModulo("Usuarios");
+    historial.setAccion("Eliminación");
+    historial.setFecha(LocalDateTime.now());
+
+    historialService.guardarHistorial(historial);
+
+    usuarioService.eliminarUsuario(id);
+
+    return "redirect:/usuarios";
     }
 
 }

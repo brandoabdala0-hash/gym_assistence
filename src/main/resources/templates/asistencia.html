@@ -28,24 +28,64 @@
 
     <main class="content">
 
-        <h1>Asistencia</h1>
+        <h1>Registro de Asistencia</h1>
 
-        <input id="asisUsuario" placeholder="Usuario">
-        <input id="asisId" placeholder="ID">
-        <input id="asisFecha" placeholder="Fecha">
+        <table>
 
-        <button onclick="registrarAsistencia()">
-            Registrar
-        </button>
-
-        <table id="tablaAsistencia">
             <tr>
-                <th>Usuario</th>
-                <th>ID</th>
+                <th>Identificación</th>
+                <th>Nombre</th>
                 <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
+
+            <tr th:each="asistencia : ${asistencias}">
+
+                <td th:text="${asistencia.identificacion}"></td>
+                <td th:text="${asistencia.nombre}"></td>
+                <td th:text="${asistencia.fecha}"></td>
+
+                <td>
+
+                  <a th:href="@{/editarAsistencia/{id}(id=${asistencia.id})}">
+                     Editar
+                  </a>
+
+                  <a th:href="@{/eliminarAsistencia/{id}(id=${asistencia.id})}">
+                     Eliminar
+                  </a>
+
+                </td>
+
+            </tr>
+
         </table>
+
+        <hr>
+
+        <h1>Registrar Asistencia</h1>
+
+        <form th:action="@{/guardarAsistencia}" method="post" th:object="${asistencia}">
+
+            <input type="hidden" th:field="*{id}">
+
+            <input
+                type="number"
+                th:field="*{identificacion}"
+                placeholder="Identificación"
+                required>
+
+            <input
+                type="text"
+                th:field="*{nombre}"
+                placeholder="Nombre"
+                required>
+
+            <button type="submit">
+                Registrar
+            </button>
+
+        </form>
 
     </main>
 

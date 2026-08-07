@@ -9,14 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gymassistence.gym_assistence.model.Producto;
 import com.gymassistence.gym_assistence.service.ProductoService;
+import java.time.LocalDateTime;
+
+import com.gymassistence.gym_assistence.model.Historial;
+import com.gymassistence.gym_assistence.service.HistorialService;
 
 @Controller
 public class ProductoController {
 
     private final ProductoService productoService;
+    private final HistorialService historialService;
 
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
+    public ProductoController(ProductoService productoService,
+                          HistorialService historialService) {
+    this.productoService = productoService;
+    this.historialService = historialService;
     }
 
     @GetMapping("/productos")
@@ -35,11 +42,6 @@ public class ProductoController {
         @RequestParam Integer cantidad,
         @RequestParam Double costo) {
 
-    System.out.println("REF = " + ref);
-    System.out.println("PRODUCTO = " + producto);
-    System.out.println("CANTIDAD = " + cantidad);
-    System.out.println("COSTO = " + costo);
-
     Producto p = new Producto();
     p.setRef(ref);
     p.setProducto(producto);
@@ -47,24 +49,24 @@ public class ProductoController {
     p.setCosto(costo);
 
     productoService.guardarProducto(p);
+    Historial historial = new Historial();
+
+    historial.setIdentificacion(0L);
+    historial.setNombre("Administrador");
+    historial.setModulo("Productos");
+    historial.setAccion("Registró el producto: " + producto);
+    historial.setFecha(LocalDateTime.now());
+
+    historialService.guardarHistorial(historial);
 
     return "redirect:/productos";
     }
 
-    @GetMapping("/editarProducto/{ref}")
-    public String editarProducto(@PathVariable Long ref, Model model) {
+    @GetMapping("/eliminarProducto/{id}")
+    public String eliminarProducto(@PathVariable Integer id) {
 
-        model.addAttribute("producto", productoService.buscarPorRef(ref));
-        model.addAttribute("productos", productoService.listarProductos());
+    productoService.eliminarProducto(id);
 
-        return "producto";
-    }
-
-    @GetMapping("/eliminarProducto/{ref}")
-    public String eliminarProducto(@PathVariable Long ref) {
-
-        productoService.eliminarProducto(ref);
-
-        return "redirect:/productos";
+    return "redirect:/productos";
     }
 }

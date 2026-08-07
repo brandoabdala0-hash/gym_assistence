@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - Gym_Assistence</title>
+    <title>Ventas - Gym_Assistence</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -28,7 +29,7 @@
 
     <main class="content">
 
-        <h1>Productos Registrados</h1>
+        <h1>Ventas Registradas</h1>
 
         <table>
 
@@ -36,26 +37,28 @@
                 <th>Referencia</th>
                 <th>Producto</th>
                 <th>Cantidad</th>
-                <th>Costo</th>
+                <th>Fecha</th>
+                <th>Total</th>
                 <th>Acciones</th>
             </tr>
 
-            <tr th:each="producto : ${productos}">
+            <tr th:each="venta : ${ventas}">
 
-                <td th:text="${producto.ref}"></td>
-                <td th:text="${producto.producto}"></td>
-                <td th:text="${producto.cantidad}"></td>
-                <td th:text="${producto.costo}"></td>
+                <td th:text="${venta.ref}"></td>
+                <td th:text="${venta.producto}"></td>
+                <td th:text="${venta.cantidad}"></td>
+                <td th:text="${venta.fecha}"></td>
+                <td th:text="${venta.total}"></td>
 
                 <td>
 
-                  <a th:href="@{/editarProducto/{id}(id=${producto.id})}">
-                     Editar
-                  </a>
+                    <a th:href="@{/editarVenta/{ref}(ref=${venta.ref})}">
+                        Editar
+                    </a>
 
-                  <a th:href="@{/eliminarProducto/{id}(id=${producto.id})}">
-                     Eliminar
-                  </a>
+                    <a th:href="@{/eliminarVenta/{ref}(ref=${venta.ref})}">
+                        Eliminar
+                    </a>
 
                 </td>
 
@@ -65,10 +68,9 @@
 
         <hr>
 
-        <h1>Registro de Producto</h1>
+        <h1>Registrar Venta</h1>
 
-        <form th:action="@{/guardarProducto}" method="post" th:object="${producto}">
-            <input type="hidden" th:field="*{id}">
+        <form th:action="@{/guardarVenta}" method="post" th:object="${venta}">
 
             <input
                 type="number"
@@ -89,10 +91,22 @@
                 required>
 
             <input
+                type="datetime-local"
+                th:field="*{fecha}"
+                required>
+
+            <input
                 type="number"
                 step="0.01"
-                th:field="*{costo}"
-                placeholder="Costo"
+                th:field="*{precio}"
+                placeholder="Precio"
+                required>
+
+            <input
+                type="number"
+                step="0.01"
+                th:field="*{total}"
+                placeholder="Total"
                 required>
 
             <button type="submit">

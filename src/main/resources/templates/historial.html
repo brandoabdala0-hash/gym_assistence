@@ -28,14 +28,30 @@
 
     <main class="content">
 
-        <h1>Historial</h1>
+        <h1>Historial del Sistema</h1>
 
-        <table id="tablaHistorial">
+        <table>
+
             <tr>
+                <th>ID</th>
+                <th>Identificación</th>
+                <th>Nombre</th>
                 <th>Módulo</th>
-                <th>Detalle</th>
+                <th>Acción</th>
                 <th>Fecha</th>
             </tr>
+
+            <tr th:each="historial : ${historiales}">
+
+                <td th:text="${historial.id}"></td>
+                <td th:text="${historial.identificacion}"></td>
+                <td th:text="${historial.nombre}"></td>
+                <td th:text="${historial.modulo}"></td>
+                <td th:text="${historial.accion}"></td>
+                <td th:text="${historial.fecha}"></td>
+
+            </tr>
+
         </table>
 
     </main>

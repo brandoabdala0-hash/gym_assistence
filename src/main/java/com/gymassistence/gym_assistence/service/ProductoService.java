@@ -24,11 +24,11 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
-    public Producto buscarPorRef(Long ref) {
-        return productoRepository.findById(ref).orElse(null);
+    public Producto buscarPorId(Integer id) {
+        return productoRepository.findById(id).orElse(null);
     }
 
-    public void eliminarProducto(Long ref) {
-        productoRepository.deleteById(ref);
+    public void eliminarProducto(Integer id) {
+        productoRepository.deleteById(id);
     }
 }

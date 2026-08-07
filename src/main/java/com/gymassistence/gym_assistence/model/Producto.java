@@ -1,6 +1,8 @@
 package com.gymassistence.gym_assistence.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,6 +11,9 @@ import jakarta.persistence.Table;
 public class Producto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private Long ref;
 
     private String producto;
@@ -18,6 +23,14 @@ public class Producto {
     private Double costo;
 
     public Producto() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Long getRef() {

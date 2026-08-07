@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "asistencia")
-public class Asistencia {
+@Table(name = "historial")
+public class Historial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +20,13 @@ public class Asistencia {
 
     private String nombre;
 
+    private String modulo;
+
+    private String accion;
+
     private LocalDateTime fecha;
 
-    public Asistencia() {
+    public Historial() {
     }
 
     public Integer getId() {
@@ -49,6 +53,21 @@ public class Asistencia {
         this.nombre = nombre;
     }
 
+    public String getModulo() {
+        return modulo;
+    }
+
+    public void setModulo(String modulo) {
+        this.modulo = modulo;
+    }
+
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
 
     public LocalDateTime getFecha() {
         return fecha;
