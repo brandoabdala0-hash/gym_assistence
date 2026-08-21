@@ -32,9 +32,11 @@
       Crear cuenta
     </button>
 
-    <button onclick="openGoogleLogin()">
-      Iniciar sesión con Google
+    <a href="/oauth2/authorization/google">
+    <button type="button">
+        Iniciar sesión con Google
     </button>
+    </a>
 
   </div>
 </section>
@@ -58,34 +60,6 @@
     </button>
 
     <button onclick="backToLogin()">
-      Volver
-    </button>
-
-  </div>
-</section>
-
-<!-- LOGIN GOOGLE -->
-<section class="login-screen hidden" id="googleScreen">
-  <div class="login-box">
-
-    <h1>Google Login</h1>
-
-    <input
-      id="googleCorreo"
-      placeholder="Correo"
-    >
-
-    <input
-      id="googlePassword"
-      type="password"
-      placeholder="Contraseña"
-    >
-
-    <button onclick="loginGoogle()">
-      Iniciar sesión
-    </button>
-
-    <button onclick="backToLoginFromGoogle()">
       Volver
     </button>
 
