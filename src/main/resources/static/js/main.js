@@ -36,46 +36,65 @@ function loginGoogle(){
 
 function crearCuenta(){
 
-  const usuarios = JSON.parse(
-    localStorage.getItem('usuarios') || '[]'
-  );
+  const params = new URLSearchParams();
+  params.append('usuario', newUsuario.value);
+  params.append('password', newPassword.value);
 
-  usuarios.push({
-    usuario:newUsuario.value,
-    password:newPassword.value
-  });
+  fetch('/registrarCuenta', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: params
+  })
+    .then(res => res.json().then(data => ({ status: res.status, data })))
+    .then(({ data }) => {
 
-  localStorage.setItem(
-    'usuarios',
-    JSON.stringify(usuarios)
-  );
+      if (data.success) {
 
-  backToLogin();
+        alert('Cuenta creada');
+        backToLogin();
 
-  alert('Cuenta creada');
+      } else {
+
+        alert(data.mensaje || 'No se pudo crear la cuenta');
+
+      }
+    })
+    .catch(() => {
+      alert('Error de conexión con el servidor');
+    });
 }
 
 function enterApp() {
 
-    const usuarios = JSON.parse(
-        localStorage.getItem('usuarios') || '[]'
-    );
+    const params = new URLSearchParams();
+    params.append('usuario', loginUsuario.value);
+    params.append('password', loginPassword.value);
 
-    if (
-        usuarios.find(
-            u =>
-            u.usuario === loginUsuario.value &&
-            u.password === loginPassword.value
-        )
-    ) {
+    fetch('/loginCuenta', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params
+    })
+        .then(res => res.json().then(data => ({ status: res.status, data })))
+        .then(({ data }) => {
 
-        window.location.href = "/panel";
+            if (data.success) {
 
-    } else {
+                window.location.href = "/panel";
 
-        alert("Credenciales incorrectas");
+            } else {
 
-    }
+                alert(data.mensaje || "Credenciales incorrectas");
+
+            }
+        })
+        .catch(() => {
+            alert('Error de conexión con el servidor');
+        });
 }
 
 
