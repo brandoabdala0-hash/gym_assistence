@@ -31,4 +31,8 @@ public class HistorialService {
     public void eliminarHistorial(Integer id) {
         historialRepository.deleteById(id);
     }
+
+    public void eliminarTodoElHistorial() {
+        historialRepository.deleteAllInBatch();
+    }
 }

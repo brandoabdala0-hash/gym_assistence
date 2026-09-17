@@ -31,28 +31,37 @@
 
     <main class="content">
 
-        <h1>Registro de Producto</h1>
+        <h1 th:text="${producto.id == null ? 'Registro de Producto' : 'Editar Producto'}">
+            Registro de Producto
+        </h1>
 
-        <p>Completa los datos para registrar un nuevo producto en el inventario.</p>
+        <p th:text="${producto.id == null ? 'Completa los datos para registrar un nuevo producto en el inventario.' : 'Modifica los datos del producto y guarda los cambios.'}">
+            Completa los datos para registrar un nuevo producto en el inventario.
+        </p>
 
         <form th:action="@{/guardarProducto}" method="post">
+
+            <input type="hidden" name="id" th:value="${producto.id}">
 
             <input
                 type="number"
                 name="ref"
                 placeholder="Referencia"
+                th:value="${producto.ref}"
                 required>
 
             <input
                 type="text"
                 name="producto"
                 placeholder="Producto"
+                th:value="${producto.producto}"
                 required>
 
             <input
                 type="number"
                 name="cantidad"
                 placeholder="Cantidad"
+                th:value="${producto.cantidad}"
                 required>
 
             <input
@@ -60,10 +69,11 @@
                 step="0.01"
                 name="costo"
                 placeholder="Costo"
+                th:value="${producto.costo}"
                 required>
 
             <button type="submit">
-                Registrar
+                <span th:text="${producto.id == null ? 'Registrar' : 'Guardar cambios'}">Registrar</span>
             </button>
 
         </form>

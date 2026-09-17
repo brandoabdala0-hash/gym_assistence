@@ -31,9 +31,13 @@
 
     <main class="content">
 
-        <h1>Registro de Usuario</h1>
+        <h1 th:text="${usuario.id == null ? 'Registro de Usuario' : 'Editar Usuario'}">
+            Registro de Usuario
+        </h1>
 
-        <p>Completa los datos para registrar un nuevo usuario en el sistema.</p>
+        <p th:text="${usuario.id == null ? 'Completa los datos para registrar un nuevo usuario en el sistema.' : 'Modifica los datos del usuario y guarda los cambios.'}">
+            Completa los datos para registrar un nuevo usuario en el sistema.
+        </p>
 
         <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
 
@@ -64,7 +68,7 @@
                 required>
 
             <button type="submit">
-                Registrar
+                <span th:text="${usuario.id == null ? 'Registrar' : 'Guardar cambios'}">Registrar</span>
             </button>
 
         </form>

@@ -31,9 +31,13 @@
 
     <main class="content">
 
-        <h1>Registro de Venta</h1>
+        <h1 th:text="${venta.ref == null ? 'Registro de Venta' : 'Editar Venta'}">
+            Registro de Venta
+        </h1>
 
-        <p>Completa los datos para registrar una nueva venta (la fecha y el total se calculan automáticamente).</p>
+        <p th:text="${venta.ref == null ? 'Completa los datos para registrar una nueva venta (la fecha y el total se calculan automáticamente).' : 'Modifica los datos de la venta y guarda los cambios.'}">
+            Completa los datos para registrar una nueva venta (la fecha y el total se calculan automáticamente).
+        </p>
 
         <form th:action="@{/guardarVenta}" method="post">
 
@@ -41,18 +45,21 @@
                 type="number"
                 name="ref"
                 placeholder="Referencia"
+                th:value="${venta.ref}"
                 required>
 
             <input
                 type="text"
                 name="producto"
                 placeholder="Producto"
+                th:value="${venta.producto}"
                 required>
 
             <input
                 type="number"
                 name="cantidad"
                 placeholder="Cantidad"
+                th:value="${venta.cantidad}"
                 required>
 
             <input
@@ -60,10 +67,11 @@
                 step="0.01"
                 name="precio"
                 placeholder="Precio"
+                th:value="${venta.precio}"
                 required>
 
             <button type="submit">
-                Registrar
+                <span th:text="${venta.ref == null ? 'Registrar' : 'Guardar cambios'}">Registrar</span>
             </button>
 
         </form>

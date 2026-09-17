@@ -48,9 +48,14 @@ public class VentaController {
             @RequestParam Integer cantidad,
             @RequestParam Double precio) {
 
-        Venta venta = new Venta();
+        Venta venta = ventaService.buscarPorRef(ref);
+        boolean esNueva = venta == null;
 
-        venta.setRef(ref);
+        if (esNueva) {
+            venta = new Venta();
+            venta.setRef(ref);
+        }
+
         venta.setProducto(producto);
         venta.setCantidad(cantidad);
         venta.setPrecio(precio);
@@ -67,7 +72,7 @@ public class VentaController {
         historial.setIdentificacion(venta.getRef());
         historial.setNombre(venta.getProducto());
         historial.setModulo("Ventas");
-        historial.setAccion("Registro");
+        historial.setAccion(esNueva ? "Registro" : "Actualización");
         historial.setFecha(LocalDateTime.now());
 
         historialService.guardarHistorial(historial);
@@ -78,10 +83,15 @@ public class VentaController {
     @GetMapping("/editarVenta/{ref}")
     public String editarVenta(@PathVariable Long ref, Model model) {
 
-        model.addAttribute("venta", ventaService.buscarPorRef(ref));
-        model.addAttribute("ventas", ventaService.listarVentas());
+        Venta venta = ventaService.buscarPorRef(ref);
 
-        return "venta";
+        if (venta == null) {
+            return "redirect:/ventas";
+        }
+
+        model.addAttribute("venta", venta);
+
+        return "registrarVenta";
     }
 
     @GetMapping("/eliminarVenta/{ref}")

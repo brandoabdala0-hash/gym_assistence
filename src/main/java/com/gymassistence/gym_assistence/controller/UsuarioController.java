@@ -63,10 +63,13 @@ public class UsuarioController {
 
     Usuario usuario = usuarioService.buscarPorId(id);
 
-    model.addAttribute("usuario", usuario);
-    model.addAttribute("usuarios", usuarioService.listarUsuarios());
+    if (usuario == null) {
+        return "redirect:/usuarios";
+    }
 
-    return "usuarios";
+    model.addAttribute("usuario", usuario);
+
+    return "registrarUsuario";
     }
 
     @PostMapping("/guardarUsuario")

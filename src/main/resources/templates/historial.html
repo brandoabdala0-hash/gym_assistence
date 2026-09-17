@@ -33,6 +33,12 @@
 
         <h1>Historial del Sistema</h1>
 
+        <form th:action="@{/eliminarHistorial}" method="post"
+              onsubmit="return confirm('¿Seguro que deseas borrar todo el historial? Esta acción no se puede deshacer.');">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit">Borrar todo el historial</button>
+        </form>
+
         <table>
 
             <tr>
