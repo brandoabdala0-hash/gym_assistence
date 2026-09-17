@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistencia - Gym_Assistence</title>
+    <title>Registrar Usuario - Gym_Assistence</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -31,44 +31,11 @@
 
     <main class="content">
 
-        <h1>Registro de Asistencia</h1>
+        <h1>Registro de Usuario</h1>
 
-        <table>
+        <p>Completa los datos para registrar un nuevo usuario en el sistema.</p>
 
-            <tr>
-                <th>Identificación</th>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>Acciones</th>
-            </tr>
-
-            <tr th:each="asistencia : ${asistencias}">
-
-                <td th:text="${asistencia.identificacion}"></td>
-                <td th:text="${asistencia.nombre}"></td>
-                <td th:text="${asistencia.fecha}"></td>
-
-                <td>
-
-                  <a th:href="@{/editarAsistencia/{id}(id=${asistencia.id})}">
-                     Editar
-                  </a>
-
-                  <a th:href="@{/eliminarAsistencia/{id}(id=${asistencia.id})}">
-                     Eliminar
-                  </a>
-
-                </td>
-
-            </tr>
-
-        </table>
-
-        <hr>
-
-        <h1>Registrar Asistencia</h1>
-
-        <form th:action="@{/guardarAsistencia}" method="post" th:object="${asistencia}">
+        <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
 
             <input type="hidden" th:field="*{id}">
 
@@ -82,6 +49,18 @@
                 type="text"
                 th:field="*{nombre}"
                 placeholder="Nombre"
+                required>
+
+            <input
+                type="number"
+                th:field="*{edad}"
+                placeholder="Edad"
+                required>
+
+            <input
+                type="number"
+                th:field="*{numero}"
+                placeholder="Número"
                 required>
 
             <button type="submit">

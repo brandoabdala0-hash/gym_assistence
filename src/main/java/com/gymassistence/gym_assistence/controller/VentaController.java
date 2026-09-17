@@ -35,6 +35,12 @@ public class VentaController {
         return "venta";
     }
 
+    @GetMapping("/registrarVenta")
+    public String registrarVenta(Model model) {
+        model.addAttribute("venta", new Venta());
+        return "registrarVenta";
+    }
+
     @PostMapping("/guardarVenta")
     public String guardarVenta(
             @RequestParam Long ref,

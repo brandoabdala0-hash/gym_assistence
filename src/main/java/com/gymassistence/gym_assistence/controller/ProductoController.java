@@ -35,6 +35,12 @@ public class ProductoController {
         return "producto";
     }
 
+    @GetMapping("/registrarProducto")
+    public String registrarProducto(Model model) {
+        model.addAttribute("producto", new Producto());
+        return "registrarProducto";
+    }
+
     @PostMapping("/guardarProducto")
     public String guardarProducto(
         @RequestParam Long ref,

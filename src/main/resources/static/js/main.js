@@ -34,67 +34,89 @@ function loginGoogle(){
     }
 }
 
-function crearCuenta(){
+function crearCuenta() {
 
-  const params = new URLSearchParams();
-  params.append('usuario', newUsuario.value);
-  params.append('password', newPassword.value);
+    const usuario = newUsuario.value;
+    const password = newPassword.value;
 
-  fetch('/registrarCuenta', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: params
-  })
-    .then(res => res.json().then(data => ({ status: res.status, data })))
-    .then(({ data }) => {
+    if (usuario === '' || password === '') {
+        alert('Completa todos los campos');
+        return;
+    }
 
-      if (data.success) {
+    fetch('/registrarCuenta', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            usuario: usuario,
+            password: password
+        })
+    })
+    .then(res => res.json().then(data => ({
+        status: res.status,
+        data: data
+    })))
+    .then(({ status, data }) => {
 
-        alert('Cuenta creada');
-        backToLogin();
+        if (data.success) {
 
-      } else {
+            alert('Cuenta creada correctamente');
+            newUsuario.value = '';
+            newPassword.value = '';
+            backToLogin();
 
-        alert(data.mensaje || 'No se pudo crear la cuenta');
+        } else {
 
-      }
+            alert(data.mensaje || 'No se pudo crear la cuenta');
+
+        }
     })
     .catch(() => {
-      alert('Error de conexión con el servidor');
+        alert('Error de conexión con el servidor');
     });
 }
 
 function enterApp() {
 
-    const params = new URLSearchParams();
-    params.append('usuario', loginUsuario.value);
-    params.append('password', loginPassword.value);
+    const usuario = loginUsuario.value;
+    const password = loginPassword.value;
+
+    if (usuario === '' || password === '') {
+        alert('Completa todos los campos');
+        return;
+    }
 
     fetch('/loginCuenta', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
-        body: params
-    })
-        .then(res => res.json().then(data => ({ status: res.status, data })))
-        .then(({ data }) => {
-
-            if (data.success) {
-
-                window.location.href = "/panel";
-
-            } else {
-
-                alert(data.mensaje || "Credenciales incorrectas");
-
-            }
+        body: JSON.stringify({
+            usuario: usuario,
+            password: password
         })
-        .catch(() => {
-            alert('Error de conexión con el servidor');
-        });
+    })
+    .then(res => res.json().then(data => ({
+        status: res.status,
+        data: data
+    })))
+    .then(({ status, data }) => {
+
+        if (data.success) {
+
+            window.location.href = "/panel";
+
+        } else {
+
+            alert(data.mensaje || "Credenciales incorrectas");
+
+        }
+    })
+    .catch(() => {
+        alert('Error de conexión con el servidor');
+    });
 }
 
 

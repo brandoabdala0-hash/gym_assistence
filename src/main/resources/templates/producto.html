@@ -14,12 +14,15 @@
 
     <aside class="sidebar">
 
-        <h2>Menú</h2>
+        <h2>GYM</h2>
 
         <a th:href="@{/panel}">Panel</a>
         <a th:href="@{/usuarios}">Usuarios</a>
+        <a th:href="@{/registrarUsuario}">Registrar Usuario</a>
         <a th:href="@{/productos}">Productos</a>
+        <a th:href="@{/registrarProducto}">Registrar Producto</a>
         <a th:href="@{/ventas}">Ventas</a>
+        <a th:href="@{/registrarVenta}">Registrar Venta</a>
         <a th:href="@{/asistencia}">Asistencia</a>
         <a th:href="@{/historial}">Historial</a>
         <a th:href="@{/}">Cerrar sesión</a>
@@ -62,44 +65,6 @@
             </tr>
 
         </table>
-
-        <hr>
-
-        <h1>Registro de Producto</h1>
-
-        <form th:action="@{/guardarProducto}" method="post" th:object="${producto}">
-            <input type="hidden" th:field="*{id}">
-
-            <input
-                type="number"
-                th:field="*{ref}"
-                placeholder="Referencia"
-                required>
-
-            <input
-                type="text"
-                th:field="*{producto}"
-                placeholder="Producto"
-                required>
-
-            <input
-                type="number"
-                th:field="*{cantidad}"
-                placeholder="Cantidad"
-                required>
-
-            <input
-                type="number"
-                step="0.01"
-                th:field="*{costo}"
-                placeholder="Costo"
-                required>
-
-            <button type="submit">
-                Registrar
-            </button>
-
-        </form>
 
     </main>
 

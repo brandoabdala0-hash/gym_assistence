@@ -39,6 +39,13 @@ public class UsuarioController {
         return "panel";
     }
 
+    // Registrar Usuario (formulario independiente)
+    @GetMapping("/registrarUsuario")
+    public String registrarUsuario(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "registrarUsuario";
+    }
+
     // Usuarios
     @GetMapping("/usuarios")
     public String usuarios(Model model) {

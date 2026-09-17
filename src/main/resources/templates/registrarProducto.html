@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial - Gym_Assistence</title>
+    <title>Registrar Producto - Gym_Assistence</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -31,31 +31,42 @@
 
     <main class="content">
 
-        <h1>Historial del Sistema</h1>
+        <h1>Registro de Producto</h1>
 
-        <table>
+        <p>Completa los datos para registrar un nuevo producto en el inventario.</p>
 
-            <tr>
-                <th>ID</th>
-                <th>Identificación</th>
-                <th>Nombre</th>
-                <th>Módulo</th>
-                <th>Acción</th>
-                <th>Fecha</th>
-            </tr>
+        <form th:action="@{/guardarProducto}" method="post">
 
-            <tr th:each="historial : ${historiales}">
+            <input
+                type="number"
+                name="ref"
+                placeholder="Referencia"
+                required>
 
-                <td th:text="${historial.id}"></td>
-                <td th:text="${historial.identificacion}"></td>
-                <td th:text="${historial.nombre}"></td>
-                <td th:text="${historial.modulo}"></td>
-                <td th:text="${historial.accion}"></td>
-                <td th:text="${historial.fecha}"></td>
+            <input
+                type="text"
+                name="producto"
+                placeholder="Producto"
+                required>
 
-            </tr>
+            <input
+                type="number"
+                name="cantidad"
+                placeholder="Cantidad"
+                required>
 
-        </table>
+            <input
+                type="number"
+                step="0.01"
+                name="costo"
+                placeholder="Costo"
+                required>
+
+            <button type="submit">
+                Registrar
+            </button>
+
+        </form>
 
     </main>
 

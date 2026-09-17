@@ -14,12 +14,15 @@
 
     <aside class="sidebar">
 
-        <h2>Menú</h2>
+        <h2>GYM</h2>
 
         <a th:href="@{/panel}">Panel</a>
         <a th:href="@{/usuarios}">Usuarios</a>
+        <a th:href="@{/registrarUsuario}">Registrar Usuario</a>
         <a th:href="@{/productos}">Productos</a>
+        <a th:href="@{/registrarProducto}">Registrar Producto</a>
         <a th:href="@{/ventas}">Ventas</a>
+        <a th:href="@{/registrarVenta}">Registrar Venta</a>
         <a th:href="@{/asistencia}">Asistencia</a>
         <a th:href="@{/historial}">Historial</a>
         <a th:href="@{/}">Cerrar sesión</a>
@@ -59,43 +62,6 @@
             </tr>
         </table>
 
-        <hr>
-
-        <h1>Registro Usuario</h1>
-
-        <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
-            <input type="hidden" th:field="*{id}">
-           
-            <input
-        type="number"
-        th:field="*{identificacion}"
-        placeholder="Identificación"
-        required>
-
-          <input
-        type="text"
-        th:field="*{nombre}"
-        placeholder="Nombre"
-        required>
-
-         
-          <input
-        type="number"
-        th:field="*{edad}"
-        placeholder="Edad"
-        required>
-
-         <input
-        type="number"
-        th:field="*{numero}"
-        placeholder="Número"
-        required>
-
-         <button type="submit"
-        th:text="${usuario.id == null} ? 'Registrar' : 'Actualizar'">
-        </button>
-
-        </form>
     </main>
 
 </div>
