@@ -25,7 +25,7 @@
         <a th:href="@{/registrarVenta}">Registrar Venta</a>
         <a th:href="@{/asistencia}">Asistencia</a>
         <a th:href="@{/historial}">Historial</a>
-        <a th:href="@{/}">Cerrar sesión</a>
+        <a href="#" onclick="cerrarSesion(); return false;">Cerrar sesión</a>
 
     </aside>
 
@@ -40,6 +40,8 @@
         </p>
 
         <form th:action="@{/guardarVenta}" method="post">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
             <input
                 type="number"

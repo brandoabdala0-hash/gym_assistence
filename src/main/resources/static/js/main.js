@@ -3,6 +3,13 @@ function openRegisterScreen(){
   registerScreen.classList.remove('hidden');
 }
 
+function getCookie(name) {
+  const prefix = name + '=';
+  const cookie = document.cookie.split(';').map(value => value.trim())
+      .find(value => value.startsWith(prefix));
+  return cookie ? decodeURIComponent(cookie.substring(prefix.length)) : null;
+}
+
 function backToLogin(){
   registerScreen.classList.add('hidden');
   loginScreen.classList.remove('hidden');
@@ -44,10 +51,14 @@ function crearCuenta() {
         return;
     }
 
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.content || getCookie('XSRF-TOKEN');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content || 'X-XSRF-TOKEN';
+
     fetch('/registrarCuenta', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            [csrfHeader]: csrfToken
         },
         body: JSON.stringify({
             usuario: usuario,
@@ -88,10 +99,14 @@ function enterApp() {
         return;
     }
 
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.content || getCookie('XSRF-TOKEN');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content || 'X-XSRF-TOKEN';
+
     fetch('/loginCuenta', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            [csrfHeader]: csrfToken
         },
         body: JSON.stringify({
             usuario: usuario,
@@ -121,7 +136,13 @@ function enterApp() {
 
 
 function cerrarSesion() {
-    window.location.href = "/";
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.content || getCookie('XSRF-TOKEN');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content || 'X-XSRF-TOKEN';
+
+    fetch('/logout', {
+        method: 'POST',
+        headers: { [csrfHeader]: csrfToken }
+    }).then(() => window.location.href = '/');
 }
 
 

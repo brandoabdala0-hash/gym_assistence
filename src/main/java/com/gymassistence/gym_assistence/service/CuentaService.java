@@ -31,6 +31,16 @@ public class CuentaService {
             throw new IllegalArgumentException("Usuario y contraseña son obligatorios");
         }
 
+        usuario = usuario.trim();
+
+        if (password.length() < 8
+                || !password.matches(".*[A-Z].*")
+                || !password.matches(".*[a-z].*")
+                || !password.matches(".*\\d.*")) {
+            throw new IllegalArgumentException(
+                    "La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número");
+        }
+
         if (cuentaRepository.existsByUsuario(usuario)) {
             throw new IllegalArgumentException("El usuario ya existe");
         }
@@ -48,7 +58,11 @@ public class CuentaService {
      */
     public Cuenta validarCredenciales(String usuario, String password) {
 
-        return cuentaRepository.findByUsuario(usuario)
+        if (usuario == null || password == null || usuario.isBlank() || password.isBlank()) {
+            return null;
+        }
+
+        return cuentaRepository.findByUsuario(usuario.trim())
                 .filter(cuenta -> passwordEncoder.matches(password, cuenta.getPassword()))
                 .orElse(null);
     }
